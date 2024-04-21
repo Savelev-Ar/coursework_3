@@ -1,5 +1,5 @@
 import os
 
-ROOT_DIR = os.parh.dirname(__file__)
+ROOT_DIR = os.path.dirname(__file__)
 
-# pytest --cov --cov-report term-missing
+JSON_PATH = os.path.join(ROOT_DIR, 'data', 'operations.json')
