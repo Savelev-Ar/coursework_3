@@ -2,6 +2,9 @@ import json
 
 
 def get_all_operations(json_path):
+    """
+    Функция получает на вход путь до файла с данными, возвращает список с данными
+    """
     with open(json_path) as file:
         data = file.read()
         all_data = json.loads(data)
@@ -9,6 +12,9 @@ def get_all_operations(json_path):
 
 
 def get_executed_operations_from_list(list_):
+    """
+    Функция возвращает список выполненных операций из списка операций
+    """
     result_list = []
     for item in list_:
         if item.get('state') == 'EXECUTED':
@@ -17,14 +23,23 @@ def get_executed_operations_from_list(list_):
 
 
 def sort_operations_list_by_date(list_):
+    """
+    функция возвращает отсортированный по дате список операций
+    """
     return sorted(list_, key=lambda operation: operation['date'], reverse=True)
 
 
 def recent_operations_in_list(list_, count=5):
+    """
+    Функция возвращает count(по умолчанию 5) операций из списка операций
+    """
     return list_[0:count]
 
 
 def hide_number(string):
+    """
+    функция скрывает номера карт и счетов
+    """
     if string == "...":
         return string
     list_ = string.split()
@@ -43,7 +58,11 @@ def hide_number(string):
     return result
 
 
-def print_list_operations_with_format(list_):
+def get_list_operations_with_format(list_):
+    """
+    функция возвращает список операций для вывода в установленном формате
+    """
+    result = []
     for item in list_:
         if item.get("from") is not None:
             from_ = item["from"]
@@ -52,6 +71,6 @@ def print_list_operations_with_format(list_):
 
         date = f'{item["date"][8:10]}.{item["date"][5:7]}.{item["date"][0:4]}'
 
-        print(f'{date} {item["description"]}\n'
-              f'{hide_number(from_)} -> {hide_number(item["to"])}\n'
-              f'{item["operationAmount"]["amount"]} {item["operationAmount"]["currency"]["name"]} \n')
+        result.append(f'{date} {item["description"]}\n{hide_number(from_)} -> {hide_number(item["to"])}\n'
+                      f'{item["operationAmount"]["amount"]} {item["operationAmount"]["currency"]["name"]} \n')
+    return result
