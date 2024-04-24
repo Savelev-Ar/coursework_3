@@ -5,7 +5,7 @@ def get_all_operations(json_path):
     """
     Функция получает на вход путь до файла с данными, возвращает список с данными
     """
-    with open(json_path) as file:
+    with open(json_path, encoding='utf-8') as file:
         data = file.read()
         all_data = json.loads(data)
     return all_data
